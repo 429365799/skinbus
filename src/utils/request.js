@@ -20,7 +20,7 @@ export default async function (url, options) {
   const settings = {
     method: 'GET',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     params: {},
     data: {},
@@ -35,6 +35,8 @@ export default async function (url, options) {
     token = localStorage.getItem('token');
 
     if (token) {
+      settings.headers.token = token
+
       if (settings.method === 'GET') {
         Object.assign(settings.params, { token })
       } else if (settings.method === 'POST') {
@@ -61,11 +63,13 @@ export default async function (url, options) {
         return;
       } else if (response.data.code === 99999) {
         if (settings.showErrorTip) {
-          message.error(response.data.msg);
+          // message.error(response.data.msg);
+          window.APP.toast.show(response.data.msg)
         }
       } else if (response.data.code === 10301) {
         if (settings.showErrorTip) {
-          message.error(response.data.msg);
+          // message.error(response.data.msg);
+          window.APP.toast.show(response.data.msg)
         }
       }
       return response.data;

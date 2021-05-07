@@ -1,9 +1,9 @@
-const proxy = require('http-proxy-middleware');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 module.exports = function (app) {
-    app.use(proxy(['/tool', '/yuesao', '/admin', '/new_captcha','/ownSource'], {
+    app.use(createProxyMiddleware(['/front'], {
         // target: 'http://xiongma-api.zzbtest.com/',
-        target: 'http://hub.zzbtest.com/',
+        target: 'http://hubskins.zzbtest.com/',
         changeOrigin: true
     }));
 };
